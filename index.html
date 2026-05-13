@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>방문객 출입 관리</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="top">
+      <div class="brand">Visitor Access</div>
+      <nav class="nav">
+        <a href="#checkin">체크인</a>
+        <a href="#list">오늘 방문</a>
+      </nav>
+    </header>
+
+    <main class="layout">
+      <section class="card" id="checkin">
+        <h1>방문 체크인</h1>
+        <p class="muted">프로토타입 화면입니다. 이후 폼 검증·API 연동을 붙이면 됩니다.</p>
+        <form class="form" id="checkin-form">
+          <label>
+            방문자 성명
+            <input name="visitor" type="text" required placeholder="홍길동" />
+          </label>
+          <label>
+            소속
+            <input name="company" type="text" placeholder="○○ 주식회사" />
+          </label>
+          <label>
+            면담 직원
+            <input name="host" type="text" required placeholder="김담당" />
+          </label>
+          <label>
+            방문 목적
+            <input name="purpose" type="text" placeholder="미팅 / 납품 / 면접 등" />
+          </label>
+          <button type="submit">체크인 등록</button>
+        </form>
+      </section>
+
+      <section class="card" id="list">
+        <h2>오늘 방문 현황</h2>
+        <ul class="visit-list" id="visit-list"></ul>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
