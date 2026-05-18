@@ -37,6 +37,14 @@ python3 -m http.server 8080
 
 브라우저에서 `http://localhost:8080` 접속.
 
+## GitHub Pages (공개 미리보기)
+
+`main` 브랜치에 푸시하면 GitHub Actions가 정적 사이트를 배포합니다.
+
+**URL:** https://dain-spec.github.io/visitor-access/
+
+처음 설정 직후에는 배포에 1~2분 걸릴 수 있습니다. 저장소 **Settings → Pages**에서 Source가 **GitHub Actions**인지 확인하세요.
+
 ## 다음 단계 (제안)
 
 - 방문 예약·체크인 API 및 DB (예: PostgreSQL, Supabase)
