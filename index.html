@@ -2,49 +2,171 @@
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>방문객 출입 관리</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#fbfbfd" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="format-detection" content="telephone=no" />
+    <title>Visitor Access · 사내 방문객 출입 관리</title>
+    <meta
+      name="description"
+      content="사내 방문객 체크인과 방문 이력을 단순하고 명확하게 관리합니다."
+    />
+    <link rel="preconnect" href="https://rsms.me/" crossorigin />
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <header class="top">
-      <div class="brand">Visitor Access</div>
-      <nav class="nav">
+    <header class="top-nav">
+      <a href="#" class="brand" aria-label="Visitor Access 홈">
+        <span class="brand-mark">V</span>
+        Visitor Access
+      </a>
+      <nav class="nav-links" aria-label="주요">
         <a href="#checkin">체크인</a>
-        <a href="#list">오늘 방문</a>
+        <a href="#today">오늘 방문</a>
+        <a href="#steps">체크인 순서</a>
       </nav>
+      <div class="nav-actions">
+        <a href="#" class="btn btn-tertiary nav-secondary">관리자 로그인</a>
+        <a href="#checkin" class="btn btn-primary">방문 등록</a>
+      </div>
     </header>
 
-    <main class="layout">
-      <section class="card" id="checkin">
-        <h1>방문 체크인</h1>
-        <p class="muted">프로토타입 화면입니다. 이후 폼 검증·API 연동을 붙이면 됩니다.</p>
-        <form class="form" id="checkin-form">
-          <label>
-            방문자 성명
-            <input name="visitor" type="text" required placeholder="홍길동" />
-          </label>
-          <label>
-            소속
-            <input name="company" type="text" placeholder="○○ 주식회사" />
-          </label>
-          <label>
-            면담 직원
-            <input name="host" type="text" required placeholder="김담당" />
-          </label>
-          <label>
-            방문 목적
-            <input name="purpose" type="text" placeholder="미팅 / 납품 / 면접 등" />
-          </label>
-          <button type="submit">체크인 등록</button>
-        </form>
+    <main>
+      <!-- 1. 방문 체크인 + 2. 오늘 방문 -->
+      <section class="shell section" id="checkin">
+        <div class="grid-2">
+          <article class="card card-lg" aria-labelledby="checkin-title">
+            <div class="card-header">
+              <h2 id="checkin-title">방문 체크인</h2>
+              <span class="status">로비 단말 연결됨</span>
+            </div>
+            <p class="card-sub">
+              방문자 정보는 면담 직원에게 즉시 통지되고, 출입 이력에 기록됩니다.
+            </p>
+
+            <form class="form" id="checkin-form" novalidate>
+              <div class="field-row">
+                <div class="field">
+                  <label for="visitor">방문자 성명</label>
+                  <input
+                    id="visitor"
+                    name="visitor"
+                    type="text"
+                    autocomplete="name"
+                    required
+                    placeholder="홍길동"
+                  />
+                </div>
+                <div class="field">
+                  <label for="company">소속</label>
+                  <input
+                    id="company"
+                    name="company"
+                    type="text"
+                    placeholder="○○ 주식회사"
+                  />
+                </div>
+              </div>
+
+              <div class="field-row">
+                <div class="field">
+                  <label for="host">면담 직원</label>
+                  <input
+                    id="host"
+                    name="host"
+                    type="text"
+                    required
+                    placeholder="김담당"
+                  />
+                </div>
+                <div class="field">
+                  <label for="purpose">방문 목적</label>
+                  <input
+                    id="purpose"
+                    name="purpose"
+                    type="text"
+                    placeholder="미팅 / 납품 / 면접"
+                  />
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-block">
+                체크인 등록
+              </button>
+            </form>
+          </article>
+
+          <article class="card card-lg" id="today" aria-labelledby="today-title">
+            <div class="card-header">
+              <h2 id="today-title">오늘 방문</h2>
+              <span class="muted" id="today-count">0건</span>
+            </div>
+            <p class="card-sub">
+              체크인된 방문 이력입니다. 데이터는 브라우저에만 저장됩니다.
+            </p>
+            <ul class="visit-list" id="visit-list" aria-live="polite"></ul>
+          </article>
+        </div>
       </section>
 
-      <section class="card" id="list">
-        <h2>오늘 방문 현황</h2>
-        <ul class="visit-list" id="visit-list"></ul>
+      <!-- 3. 체크인 순서 -->
+      <section class="shell section" id="steps">
+        <header class="section-head">
+          <span class="eyebrow">체크인 순서</span>
+          <h2>네 단계로 끝나는 출입</h2>
+          <p class="subhead">
+            방문자가 도착해 출입증을 발급받을 때까지, 표준 절차를 따라 진행합니다.
+          </p>
+        </header>
+
+        <ol class="steps">
+          <li class="card step">
+            <span class="step-no">01</span>
+            <h3>정보 입력</h3>
+            <p>
+              로비 단말 또는 사전 예약 링크에서 방문자·소속·면담 직원·목적을
+              입력합니다.
+            </p>
+          </li>
+          <li class="card step">
+            <span class="step-no">02</span>
+            <h3>호스트 알림</h3>
+            <p>
+              면담 직원에게 Slack·이메일로 즉시 통지됩니다. 호스트는 한 번의
+              탭으로 승인합니다.
+            </p>
+          </li>
+          <li class="card step">
+            <span class="step-no">03</span>
+            <h3>출입증 발급</h3>
+            <p>
+              승인되면 QR 출입증이 발급되고, 게이트와 보안팀 콘솔에 활성
+              방문으로 표시됩니다.
+            </p>
+          </li>
+          <li class="card step">
+            <span class="step-no">04</span>
+            <h3>퇴실 기록</h3>
+            <p>
+              방문자가 퇴실 시 동일 QR로 체크아웃하면, 감사 가능한 이력으로
+              남습니다.
+            </p>
+          </li>
+        </ol>
       </section>
     </main>
+
+    <footer class="footer">
+      <span class="brand">
+        <span class="brand-mark">V</span>
+        Visitor Access
+      </span>
+      <span>© 2026 · 사내 방문객 출입 관리 프로토타입</span>
+    </footer>
 
     <script src="app.js"></script>
   </body>
