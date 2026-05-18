@@ -39,11 +39,19 @@ python3 -m http.server 8080
 
 ## GitHub Pages (공개 미리보기)
 
-`main` 브랜치에 푸시하면 GitHub Actions가 정적 사이트를 배포합니다.
-
 **URL:** https://dain-spec.github.io/visitor-access/
 
-처음 설정 직후에는 배포에 1~2분 걸릴 수 있습니다. 저장소 **Settings → Pages**에서 Source가 **GitHub Actions**인지 확인하세요.
+`main` 브랜치에 푸시하면 GitHub Actions(`.github/workflows/pages.yml`)가 정적 사이트를 배포합니다.
+
+### 최초 1회 설정 (저장소 관리자)
+
+GitHub에서 Pages를 켜야 배포가 동작합니다.
+
+1. [저장소 Settings → Pages](https://github.com/dain-spec/visitor-access/settings/pages) 이동
+2. **Build and deployment → Source**를 **GitHub Actions**로 선택
+3. [Actions](https://github.com/dain-spec/visitor-access/actions) 탭에서 실패한 **Deploy to GitHub Pages** 워크플로를 **Re-run all jobs**로 다시 실행
+
+배포가 성공하면 위 URL에서 사이트를 볼 수 있습니다(보통 1~2분 소요).
 
 ## 다음 단계 (제안)
 
