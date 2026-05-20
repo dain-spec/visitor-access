@@ -56,7 +56,7 @@ function renderList() {
     const li = document.createElement("li");
     li.className = "empty";
     li.textContent =
-      "등록된 방문이 없습니다. 왼쪽 폼에서 첫 방문을 체크인해 보세요.";
+      "등록된 방문이 없습니다. 체크인 화면에서 첫 방문을 등록해 보세요.";
     ul.appendChild(li);
     return;
   }
@@ -106,9 +106,41 @@ document.getElementById("checkin-form").addEventListener("submit", (e) => {
   saveVisits(next);
   e.target.reset();
   renderList();
-  document
-    .getElementById("today")
-    ?.scrollIntoView({ behavior: "smooth", block: "start" });
+  goToPrototypeStep("today");
+});
+
+const PROTOTYPE_STEPS = ["checkin", "today", "steps"];
+
+function goToPrototypeStep(stepId) {
+  PROTOTYPE_STEPS.forEach((id) => {
+    const screen = document.querySelector(`[data-screen="${id}"]`);
+    screen?.classList.toggle("screen-active", id === stepId);
+  });
+
+  document.querySelectorAll("[data-prototype-step]").forEach((el) => {
+    const active = el.dataset.prototypeStep === stepId;
+    el.classList.toggle("active", active);
+    if (el instanceof HTMLButtonElement && el.classList.contains("prototype-tab")) {
+      el.setAttribute("aria-current", active ? "step" : "false");
+    }
+  });
+
+  const screen = document.getElementById(stepId);
+  const scrollParent = document.querySelector(".app-main");
+  if (screen && scrollParent) {
+    scrollParent.scrollTop = 0;
+  }
+}
+
+document.querySelectorAll("[data-prototype-step]").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    goToPrototypeStep(btn.dataset.prototypeStep);
+  });
+});
+
+document.querySelector(".app-bar-action")?.addEventListener("click", (e) => {
+  e.preventDefault();
+  goToPrototypeStep("checkin");
 });
 
 renderList();
